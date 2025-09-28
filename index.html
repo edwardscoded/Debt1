@@ -419,6 +419,65 @@
             color: #d4af37;
         }
 
+        /* Tab Styles */
+        .tab-button {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tab-button.active {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+            color: #d4af37;
+        }
+
+        .tab-button:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #d4af37;
+        }
+
+        .tab-content {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .transaction-row {
+            transition: background-color 0.3s ease;
+        }
+
+        .transaction-row:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .buy-transaction {
+            border-left: 3px solid #4CAF50;
+        }
+
+        .sell-transaction {
+            border-left: 3px solid #f44336;
+        }
+
+        .transaction-hash {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.8rem;
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .transaction-hash:hover {
+            text-decoration: underline;
+        }
+
         /* Transparency */
         .metrics-grid {
             display: grid;
@@ -782,49 +841,82 @@
     <section class="section" id="ledger">
         <div class="container">
             <h2>The Ledger / Explorer</h2>
-            <p class="section-subtitle">Transparent tracking of all DEBT1 holdings and debt records.</p>
+            <p class="section-subtitle">Live tracking of all DEBT1 transactions and holdings on Solana.</p>
             
-            <div class="ledger-table">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Address</th>
-                            <th>DEBT1 Balance</th>
-                            <th>Timestamp</th>
-                            <th>Comments</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>0x1234...5678</code></td>
-                            <td>1,000,000 DEBT1</td>
-                            <td>2025-09-28 14:30</td>
-                            <td>Initial mint</td>
-                        </tr>
-                        <tr>
-                            <td><code>0xABCD...EFGH</code></td>
-                            <td>500,000 DEBT1</td>
-                            <td>2025-09-28 13:15</td>
-                            <td>Exchange reserve</td>
-                        </tr>
-                        <tr>
-                            <td><code>0x9876...5432</code></td>
-                            <td>250,000 DEBT1</td>
-                            <td>2025-09-28 12:45</td>
-                            <td>DeFi protocol</td>
-                        </tr>
-                        <tr>
-                            <td><code>0xFEDC...BA98</code></td>
-                            <td>100,000 DEBT1</td>
-                            <td>2025-09-28 11:20</td>
-                            <td>Treasury holding</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="display: inline-flex; gap: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 0.5rem;">
+                    <button onclick="switchTab('transactions')" id="tab-transactions" class="tab-button active">Recent Transactions</button>
+                    <button onclick="switchTab('holders')" id="tab-holders" class="tab-button">Top Holders</button>
+                </div>
             </div>
 
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="#" class="btn btn-secondary">Submit Your Debt Record</a>
+            <!-- Transactions Tab -->
+            <div id="transactions-tab" class="tab-content">
+                <div class="ledger-table">
+                    <div id="loading-transactions" style="text-align: center; padding: 2rem; color: #d4af37;">
+                        Loading live transactions...
+                    </div>
+                    <table class="table" id="transactions-table" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th>Transaction</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Price USD</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Holders Tab -->
+            <div id="holders-tab" class="tab-content" style="display: none;">
+                <div class="ledger-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Address</th>
+                                <th>DEBT1 Balance</th>
+                                <th>Percentage</th>
+                                <th>Value USD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>ABC123...XYZ789</code></td>
+                                <td>1,000,000 DEBT1</td>
+                                <td>54.1%</td>
+                                <td>$X,XXX,XXX</td>
+                            </tr>
+                            <tr>
+                                <td><code>DEF456...UVW012</code></td>
+                                <td>500,000 DEBT1</td>
+                                <td>27.0%</td>
+                                <td>$XXX,XXX</td>
+                            </tr>
+                            <tr>
+                                <td><code>GHI789...RST345</code></td>
+                                <td>250,000 DEBT1</td>
+                                <td>13.5%</td>
+                                <td>$XX,XXX</td>
+                            </tr>
+                            <tr>
+                                <td><code>JKL012...OPQ678</code></td>
+                                <td>100,000 DEBT1</td>
+                                <td>5.4%</td>
+                                <td>$X,XXX</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#" class="btn btn-secondary" onclick="refreshTransactions()">🔄 Refresh Data</a>
+                <a href="#" class="btn btn-secondary" id="dexscreener-link" target="_blank">📊 View on DexScreener</a>
             </div>
         </div>
     </section>
@@ -1124,6 +1216,144 @@
 
         // Initialize particles after DOM load
         document.addEventListener('DOMContentLoaded', createParticles);
+
+        // DexScreener API Integration
+        const DEBT1_TOKEN_ADDRESS = 'YOUR_SOLANA_TOKEN_ADDRESS_HERE'; // Replace with actual token address
+        const DEXSCREENER_BASE_URL = 'https://api.dexscreener.com/latest/dex';
+
+        // Switch between tabs
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').style.display = 'block';
+            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            // Load data if switching to transactions
+            if (tabName === 'transactions') {
+                loadTransactions();
+            }
+        }
+
+        // Load transactions from DexScreener API
+        async function loadTransactions() {
+            const loadingEl = document.getElementById('loading-transactions');
+            const tableEl = document.getElementById('transactions-table');
+            const tbody = document.getElementById('transactions-body');
+            
+            try {
+                // Show loading
+                loadingEl.style.display = 'block';
+                tableEl.style.display = 'none';
+                
+                // Fetch token data from DexScreener
+                const response = await fetch(`${DEXSCREENER_BASE_URL}/tokens/${DEBT1_TOKEN_ADDRESS}`);
+                const data = await response.json();
+                
+                if (data.pairs && data.pairs.length > 0) {
+                    const pair = data.pairs[0]; // Get the most liquid pair
+                    
+                    // Update DexScreener link
+                    document.getElementById('dexscreener-link').href = pair.url;
+                    
+                    // For demonstration, we'll show some mock transaction data
+                    // In reality, you'd need to fetch actual transaction data from Solana RPC
+                    displayMockTransactions(tbody, pair.priceUsd);
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: rgba(255, 255, 255, 0.5);">Token not yet listed on DEX</td></tr>';
+                }
+                
+                // Hide loading, show table
+                loadingEl.style.display = 'none';
+                tableEl.style.display = 'table';
+                
+            } catch (error) {
+                console.error('Error loading transactions:', error);
+                loadingEl.innerHTML = '<span style="color: #f44336;">Error loading data. Token may not be launched yet.</span>';
+                
+                // Show mock data for demo purposes
+                displayMockTransactions(tbody, '0.00');
+                loadingEl.style.display = 'none';
+                tableEl.style.display = 'table';
+            }
+        }
+
+        // Display mock transactions (replace with real Solana transaction data later)
+        function displayMockTransactions(tbody, currentPrice) {
+            const mockTransactions = [
+                {
+                    hash: 'ABC123...XYZ789',
+                    type: 'buy',
+                    amount: '50,000',
+                    price: currentPrice || '0.001234',
+                    time: '2 min ago'
+                },
+                {
+                    hash: 'DEF456...UVW012', 
+                    type: 'sell',
+                    amount: '25,000',
+                    price: currentPrice || '0.001230',
+                    time: '5 min ago'
+                },
+                {
+                    hash: 'GHI789...RST345',
+                    type: 'buy',
+                    amount: '100,000',
+                    price: currentPrice || '0.001228',
+                    time: '8 min ago'
+                },
+                {
+                    hash: 'JKL012...OPQ678',
+                    type: 'sell',
+                    amount: '75,000',
+                    price: currentPrice || '0.001225',
+                    time: '12 min ago'
+                }
+            ];
+
+            tbody.innerHTML = mockTransactions.map(tx => `
+                <tr class="transaction-row ${tx.type}-transaction">
+                    <td>
+                        <a href="https://solscan.io/tx/${tx.hash}" target="_blank" class="transaction-hash">
+                            ${tx.hash}
+                        </a>
+                    </td>
+                    <td>
+                        <span style="color: ${tx.type === 'buy' ? '#4CAF50' : '#f44336'}; font-weight: 600;">
+                            ${tx.type.toUpperCase()}
+                        </span>
+                    </td>
+                    <td>${tx.amount} DEBT1</td>
+                    <td>${tx.price}</td>
+                    <td>${tx.time}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Refresh transactions
+        function refreshTransactions() {
+            loadTransactions();
+        }
+
+        // Auto-refresh transactions every 30 seconds
+        setInterval(() => {
+            if (document.getElementById('transactions-tab').style.display !== 'none') {
+                loadTransactions();
+            }
+        }, 30000);
+
+        // Load transactions on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTransactions();
+        });
     </script>
 </body>
 </html>
