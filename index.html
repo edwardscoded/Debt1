@@ -1,7 +1,4 @@
-<div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>How is this different from traditional stablecoins?</span>
-                        <span class="faq-icon"><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -77,17 +74,6 @@
             background-position: center;
             border-radius: 50%;
             box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
-            animation: rotate 8s linear infinite;
-            transition: animation-duration 0.3s ease;
-        }
-
-        .logo:hover .logo-icon {
-            animation-duration: 2s;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .nav-menu {
@@ -899,11 +885,20 @@
                 </div>
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>How is the peg maintained?</span>
+                        <span>How is this different from traditional stablecoins?</span>
                         <span class="faq-icon">▼</span>
                     </div>
                     <div class="faq-answer">
-                        The peg is maintained through automated smart contracts that adjust DEBT1 supply based on real-time global debt index data from verified oracle feeds. As global debt expands (which it inevitably does), the backing becomes stronger, not weaker.
+                        Traditional stablecoins like USD1 provide stability through 1:1 pegs to dollars. DEBT1 is fundamentally different — it's an index-style thematic token that tracks global debt growth, not price stability. Think of it as exposure to the world's obligations rather than a stable store of value.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>How does the index tracking work?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        DEBT1 is designed to mirror the direction and magnitude of global debt movements through on-chain data reporting. The token value may fluctuate based on debt growth patterns rather than maintaining price stability like traditional stablecoins.
                     </div>
                 </div>
                 <div class="faq-item">
