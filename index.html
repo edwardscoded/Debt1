@@ -3,664 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEBT1 - The Global Debt Peg | Department of Debt</title>
-    <meta name="description" content="DEBT1 is a multi-chain digital asset indexed to global obligations. Built for scale, trust, and transparency in the evolving financial landscape.">
-    <meta property="og:title" content="DEBT1 - The Global Debt Peg">
-    <meta property="og:description" content="Indexed to global obligations. Built for scale, trust, and transparency.">
-    <meta property="og:type" content="website">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>DEBT1 - The Global Debt Index | Department of Debt</title>
+    <meta name="description" content="DEBT1 is a thematic digital asset that tracks global debt obligations on Solana.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
         /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .header.scrolled {
-            background: rgba(10, 10, 10, 0.98);
-            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #d4af37;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background-image: url('https://raw.githubusercontent.com/edwardscoded/Debt1/main/images/coinlogo.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            border-radius: 50%;
-            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-item a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-item a:hover {
-            color: #d4af37;
-        }
-
-        .nav-item a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: #d4af37;
-            transition: width 0.3s ease;
-        }
-
-        .nav-item a:hover::after {
-            width: 100%;
-        }
-
-        .nav-cta {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #d4af37, #f4d03f);
-            color: #0a0a0a;
-            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #d4af37;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 60px;
-            position: relative;
-            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.1;
-            background-image: 
-                linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px),
-                linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero-coin {
-            width: 280px;
-            height: 280px;
-            background-image: url('https://raw.githubusercontent.com/edwardscoded/Debt1/main/images/coinlogo.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            border-radius: 50%;
-            margin: 0 auto 2.5rem;
-            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.4);
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { box-shadow: 0 8px 32px rgba(212, 175, 55, 0.4); }
-            to { box-shadow: 0 12px 48px rgba(212, 175, 55, 0.6); }
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            line-height: 1.1;
-            background: linear-gradient(135deg, #ffffff, #d4af37);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 1.25rem;
-            line-height: 1.4;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
+        .header { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(212,175,55,0.1); z-index: 1000; transition: all 0.3s; }
+        .header.scrolled { background: rgba(10,10,10,0.98); box-shadow: 0 4px 32px rgba(0,0,0,0.5); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 700; color: #d4af37; text-decoration: none; }
+        .logo-icon { width: 40px; height: 40px; background-image: url('https://raw.githubusercontent.com/edwardscoded/Debt1/main/images/coinlogo.png'); background-size: contain; background-repeat: no-repeat; background-position: center; border-radius: 50%; box-shadow: 0 4px 16px rgba(212,175,55,0.3); }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-item a { color: #fff; text-decoration: none; font-weight: 500; transition: color 0.3s; position: relative; }
+        .nav-item a:hover { color: #d4af37; }
+        .nav-item a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: #d4af37; transition: width 0.3s; }
+        .nav-item a:hover::after { width: 100%; }
+        .nav-cta { display: flex; gap: 1rem; }
+        .btn { padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-primary { background: linear-gradient(135deg, #d4af37, #f4d03f); color: #0a0a0a; box-shadow: 0 4px 16px rgba(212,175,55,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,0.4); }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.15); border-color: #d4af37; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        
+        /* Hero */
+        .hero { min-height: auto; display: flex; align-items: center; padding-top: 120px; padding-bottom: 4rem; position: relative; background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.1) 0%, transparent 70%); overflow: hidden; }
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; background-image: linear-gradient(90deg, rgba(212,175,55,0.1) 1px, transparent 1px), linear-gradient(rgba(212,175,55,0.1) 1px, transparent 1px); background-size: 50px 50px; animation: float 20s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .hero-content { text-align: center; z-index: 2; max-width: 800px; margin: 0 auto; transform: translateY(0); }
+        .hero-coin { width: 300px; height: 300px; background-image: url('https://raw.githubusercontent.com/edwardscoded/Debt1/main/images/coinlogo.png'); background-size: contain; background-repeat: no-repeat; background-position: center; border-radius: 50%; margin: 0 auto 2rem; box-shadow: 0 8px 32px rgba(212,175,55,0.4); animation: glow 3s ease-in-out infinite alternate; }
+        @keyframes glow { from { box-shadow: 0 8px 32px rgba(212,175,55,0.4); } to { box-shadow: 0 12px 48px rgba(212,175,55,0.6); } }
+        .hero h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.1; background: linear-gradient(135deg, #fff, #d4af37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle { font-size: 1.25rem; color: rgba(255,255,255,0.8); margin-bottom: 1.25rem; line-height: 1.4; }
+        .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        
         /* Sections */
-        .section {
-            padding: 6rem 0;
-            position: relative;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff, #d4af37);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: #d4af37;
-            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.1);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #d4af37, #f4d03f);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            color: #0a0a0a;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #d4af37;
-        }
-
-        /* How It Works */
-        .steps-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .step {
-            flex: 1;
-            text-align: center;
-            min-width: 200px;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #d4af37, #f4d03f);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #0a0a0a;
-        }
-
-        .step h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .step-arrow {
-            display: none;
-        }
-
+        .section { padding: 6rem 0; position: relative; }
+        .section h2 { font-size: 2.5rem; font-weight: 700; text-align: center; margin-bottom: 1rem; background: linear-gradient(135deg, #fff, #d4af37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section-subtitle { text-align: center; font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
+        .feature-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(212,175,55,0.2); border-radius: 12px; padding: 2rem; transition: all 0.3s; text-align: center; }
+        .feature-card:hover { transform: translateY(-5px); border-color: #d4af37; box-shadow: 0 12px 32px rgba(212,175,55,0.1); }
+        .feature-card h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: #d4af37; }
+        
+        /* Steps */
+        .steps-container { display: flex; justify-content: space-between; align-items: center; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; }
+        .step { flex: 1; text-align: center; min-width: 200px; }
+        .step-number { width: 60px; height: 60px; background: linear-gradient(135deg, #d4af37, #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold; color: #0a0a0a; }
+        .step h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
+        
         /* Integrations */
-        .integrations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .integration-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .integration-card:hover {
-            border-color: #d4af37;
-            transform: translateY(-3px);
-        }
-
-        .chain-addresses {
-            margin-top: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 2rem;
-        }
-
-        .address-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .address-row:last-child {
-            border-bottom: none;
-        }
-
-        .address-code {
-            font-family: 'Monaco', 'Menlo', monospace;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-        }
-
+        .integration-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; transition: all 0.3s; }
+        .integration-card:hover { border-color: #d4af37; transform: translateY(-3px); }
+        .chain-addresses { margin-top: 2rem; background: rgba(255,255,255,0.05); border-radius: 12px; padding: 2rem; }
+        .address-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .address-row:last-child { border-bottom: none; }
+        .address-code { font-family: 'Monaco', monospace; background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 6px; font-size: 0.8rem; }
+        
         /* Ledger */
-        .ledger-table {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            overflow: hidden;
-            margin-top: 2rem;
-        }
-
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table th, .table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .table th {
-            background: rgba(212, 175, 55, 0.1);
-            font-weight: 600;
-            color: #d4af37;
-        }
-
-        /* Tab Styles */
-        .tab-button {
-            background: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .tab-button.active {
-            background: rgba(212, 175, 55, 0.2);
-            border-color: #d4af37;
-            color: #d4af37;
-        }
-
-        .tab-button:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: #d4af37;
-        }
-
-        .tab-content {
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .transaction-row {
-            transition: background-color 0.3s ease;
-        }
-
-        .transaction-row:hover {
-            background: rgba(212, 175, 55, 0.05);
-        }
-
-        .buy-transaction {
-            border-left: 3px solid #4CAF50;
-        }
-
-        .sell-transaction {
-            border-left: 3px solid #f44336;
-        }
-
-        .transaction-hash {
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.8rem;
-            color: #d4af37;
-            text-decoration: none;
-        }
-
-        .transaction-hash:hover {
-            text-decoration: underline;
-        }
-
-        /* Transparency */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .metric-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .metric-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #d4af37;
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-label {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
+        .ledger-table { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; margin-top: 2rem; }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th, .table td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .table th { background: rgba(212,175,55,0.1); font-weight: 600; color: #d4af37; }
+        .tab-button { background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; transition: all 0.3s; font-weight: 500; }
+        .tab-button.active { background: rgba(212,175,55,0.2); border-color: #d4af37; color: #d4af37; }
+        .tab-button:hover { background: rgba(255,255,255,0.05); border-color: #d4af37; }
+        .tab-content { animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .transaction-row:hover { background: rgba(212,175,55,0.05); }
+        .buy-transaction { border-left: 3px solid #4CAF50; }
+        .sell-transaction { border-left: 3px solid #f44336; }
+        .transaction-hash { font-family: 'Monaco', monospace; font-size: 0.8rem; color: #d4af37; text-decoration: none; }
+        .transaction-hash:hover { text-decoration: underline; }
+        
+        /* Metrics */
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .metric-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(212,175,55,0.2); border-radius: 12px; padding: 2rem; text-align: center; }
+        .metric-value { font-size: 2rem; font-weight: 700; color: #d4af37; margin-bottom: 0.5rem; }
+        .metric-label { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+        
         /* FAQ */
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            transition: background 0.3s ease;
-        }
-
-        .faq-question:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .faq-answer {
-            padding: 0 1.5rem 1.5rem;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-        }
-
-        .faq-icon {
-            transition: transform 0.3s ease;
-        }
-
-        .faq-item.open .faq-icon {
-            transform: rotate(180deg);
-        }
-
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
+        .faq-question { padding: 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; transition: background 0.3s; }
+        .faq-question:hover { background: rgba(255,255,255,0.05); }
+        .faq-answer { padding: 0 1.5rem 1.5rem; color: rgba(255,255,255,0.8); line-height: 1.6; }
+        .faq-icon { transition: transform 0.3s; }
+        .faq-item.open .faq-icon { transform: rotate(180deg); }
+        
         /* Footer */
-        .footer {
-            background: rgba(0, 0, 0, 0.8);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 3rem 0 2rem;
-            margin-top: 6rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            color: #d4af37;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: #d4af37;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 2rem;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: #d4af37;
-            color: #0a0a0a;
-        }
-
-        /* Responsive Design */
+        .footer { background: rgba(0,0,0,0.8); border-top: 1px solid rgba(212,175,55,0.2); padding: 3rem 0 2rem; margin-top: 6rem; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h4 { color: #d4af37; margin-bottom: 1rem; font-weight: 600; }
+        .footer-section a { color: rgba(255,255,255,0.7); text-decoration: none; display: block; margin-bottom: 0.5rem; transition: color 0.3s; }
+        .footer-section a:hover { color: #d4af37; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: rgba(255,255,255,0.5); }
+        .social-links { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; }
+        .social-link { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; transition: all 0.3s; }
+        .social-link:hover { background: #d4af37; color: #0a0a0a; }
+        
         @media (max-width: 768px) {
-            .nav-menu, .nav-cta {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-cta {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .steps-container {
-                flex-direction: column;
-            }
-
-            .section h2 {
-                font-size: 2rem;
-            }
-
-            .nav-container {
-                padding: 1rem;
-            }
-
-            .container {
-                padding: 0 15px;
-            }
+            .nav-menu, .nav-cta { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-cta { flex-direction: column; align-items: center; }
+            .steps-container { flex-direction: column; }
+            .section h2 { font-size: 2rem; }
+            .nav-container { padding: 1rem; }
+            .container { padding: 0 15px; }
+            .features-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header" id="header">
         <nav class="nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon"></div>
-                DEBT1
-            </a>
+            <a href="#" class="logo"><div class="logo-icon"></div>DEBT1</a>
             <ul class="nav-menu">
                 <li class="nav-item"><a href="#home">Home</a></li>
                 <li class="nav-item"><a href="#about">About</a></li>
@@ -670,14 +132,13 @@
                 <li class="nav-item"><a href="#faq">FAQ</a></li>
             </ul>
             <div class="nav-cta">
-                <a href="#" class="btn btn-secondary">Explore Ledger</a>
-                <a href="#" class="btn btn-primary">Buy DEBT1</a>
+                <a href="#ledger" class="btn btn-secondary">Explore Ledger</a>
+                <a href="https://bonk.fun/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Buy DEBT1</a>
             </div>
             <button class="mobile-menu-btn">☰</button>
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-bg"></div>
         <div class="container">
@@ -686,89 +147,48 @@
                 <h1>DEBT1: Global Debt Index</h1>
                 <p class="hero-subtitle">A thematic digital asset that tracks the scale of global debt obligations, not fiat reserves. DEBT1 mirrors the direction and magnitude of global debt growth.</p>
                 <div class="hero-cta">
-                    <a href="#" class="btn btn-primary">Buy DEBT1</a>
+                    <a href="https://bonk.fun/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Buy DEBT1</a>
                     <a href="#ledger" class="btn btn-secondary">Explore Ledger</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- What is DEBT1 -->
     <section class="section" id="about">
         <div class="container">
             <h2>What is DEBT1?</h2>
-            <div style="text-align: center; margin-bottom: 1rem;">
-                <span style="color: #d4af37; font-weight: 600; font-size: 1.1rem;">Issued by Global Debt Reserve (GDR)</span>
-            </div>
+            <div style="text-align: center; margin-bottom: 1rem;"><span style="color: #d4af37; font-weight: 600; font-size: 1.1rem;">Issued by Global Debt Reserve (GDR)</span></div>
             <p class="section-subtitle">DEBT1 is a next-generation digital asset that tracks the scale of global debt obligations, not fiat reserves.</p>
             
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">📈</div>
-                    <h3>Index</h3>
-                    <p>DEBT1 references sovereign, corporate, and household debt worldwide (currently over $305 trillion).</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Mechanism</h3>
-                    <p>Unlike fiat-backed stablecoins, DEBT1 does not maintain a 1:1 peg to a single currency. Instead, it is designed to mirror the direction and magnitude of global debt growth.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Transparency</h3>
-                    <p>The debt index can be observed through on-chain reporting, data sources, and financial indicators on the Solana blockchain.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Utility</h3>
-                    <p>DEBT1 provides exposure to the underlying force of credit and obligations that drive the world economy — functioning as a thematic asset rather than a fiat replacement.</p>
-                </div>
+                <div class="feature-card"><h3>Index</h3><p>DEBT1 references sovereign, corporate, and household debt worldwide (currently over $305 trillion).</p></div>
+                <div class="feature-card"><h3>Mechanism</h3><p>Unlike fiat-backed stablecoins, DEBT1 does not maintain a 1:1 peg to a single currency. Instead, it is designed to mirror the direction and magnitude of global debt growth.</p></div>
+                <div class="feature-card"><h3>Transparency</h3><p>The debt index can be observed through on-chain reporting, data sources, and financial indicators on the Solana blockchain.</p></div>
+                <div class="feature-card"><h3>Utility</h3><p>DEBT1 provides exposure to the underlying force of credit and obligations that drive the world economy — functioning as a thematic asset rather than a fiat replacement.</p></div>
             </div>
 
-            <!-- Important Disclosure -->
-            <div style="margin-top: 4rem; background: rgba(255, 165, 0, 0.1); border: 2px solid #FFA500; border-radius: 12px; padding: 2rem; text-align: center;">
-                <h3 style="color: #FFA500; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                    ⚠️ Important Disclosure
-                </h3>
-                <p style="font-size: 1.1rem; font-weight: 600; color: #FFA500; margin-bottom: 1rem;">DEBT1 is not a stablecoin.</p>
-                <p style="color: rgba(255, 255, 255, 0.9); line-height: 1.6;">
-                    It is a digital asset inspired by the concept of global debt, with no guarantee of price stability or redemption at par. Holders should view DEBT1 as an index-style thematic token rather than a substitute for stablecoins like USD1 or USDC.
-                </p>
-            </div>
-
-            <!-- Why DEBT1 Section -->
-            <div style="margin-top: 4rem; text-align: center;">
+            <div style="margin-top: 3rem; text-align: center;">
                 <h3 style="font-size: 2rem; color: #d4af37; margin-bottom: 2rem;">Why DEBT1?</h3>
-                <div class="features-grid" style="margin-top: 2rem;">
-                    <div class="feature-card">
-                        <h4 style="color: #d4af37; margin-bottom: 1rem;">Universal</h4>
-                        <p>Debt is universal — governments, corporations, and individuals cannot escape it.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4 style="color: #d4af37; margin-bottom: 1rem;">Expanding</h4>
-                        <p>Debt always expands — while currencies fluctuate, obligations accumulate.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4 style="color: #d4af37; margin-bottom: 1rem;">Dynamic</h4>
-                        <p>DEBT1 captures this dynamic, making it a novel asset class tied to the reality of credit and borrowing.</p>
-                    </div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="feature-card"><h4 style="color: #d4af37; margin-bottom: 1rem;">Universal</h4><p>Debt is universal — governments, corporations, and individuals cannot escape it.</p></div>
+                    <div class="feature-card"><h4 style="color: #d4af37; margin-bottom: 1rem;">Expanding</h4><p>Debt always expands — while currencies fluctuate, obligations accumulate.</p></div>
+                    <div class="feature-card"><h4 style="color: #d4af37; margin-bottom: 1rem;">Dynamic</h4><p>DEBT1 captures this dynamic, making it a novel asset class tied to the reality of credit and borrowing.</p></div>
                 </div>
             </div>
 
-            <!-- Positioning vs USD1 -->
-            <div style="margin-top: 4rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 2rem; border: 1px solid rgba(212, 175, 55, 0.2);">
+            <div style="margin-top: 4rem; background: rgba(255,255,255,0.05); border-radius: 12px; padding: 2rem; border: 1px solid rgba(212,175,55,0.2);">
                 <h3 style="text-align: center; font-size: 1.5rem; color: #d4af37; margin-bottom: 2rem;">Positioning vs Traditional Stablecoins</h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
-                    <div style="text-align: center; padding: 1.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
-                        <h4 style="color: #ffffff; margin-bottom: 1rem;">USD1</h4>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">Pegged 1:1 to U.S. dollars</p>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">Stable by reserve backing</p>
+                    <div style="text-align: center; padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                        <h4 style="color: #fff; margin-bottom: 1rem;">USD1</h4>
+                        <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Pegged 1:1 to U.S. dollars</p>
+                        <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Stable by reserve backing</p>
                         <p style="color: #d4af37; font-weight: 600; margin-top: 1rem;">= pegged to dollars (stability)</p>
                     </div>
-                    <div style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(244, 208, 63, 0.1)); border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.3);">
+                    <div style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(244,208,63,0.1)); border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
                         <h4 style="color: #d4af37; margin-bottom: 1rem;">DEBT1</h4>
-                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">Inspired by global debt</p>
-                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">Digital instrument representing world's obligations</p>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Inspired by global debt</p>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Digital instrument representing world's obligations</p>
                         <p style="color: #d4af37; font-weight: 600; margin-top: 1rem;">= indexed to debt (growth & obligation)</p>
                     </div>
                 </div>
@@ -776,52 +196,31 @@
         </div>
     </section>
 
-    <!-- How It Works -->
     <section class="section" id="how-it-works">
         <div class="container">
             <h2>How It Works</h2>
             <p class="section-subtitle">DEBT1 tracks global debt growth through on-chain data integration, functioning as an index-style thematic token on Solana.</p>
-            
             <div class="steps-container">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Data Aggregation</h3>
-                    <p>Global debt data is collected from sovereign, corporate, and household sources worldwide.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Index Tracking</h3>
-                    <p>DEBT1 is designed to mirror the direction and magnitude of global debt growth, not maintain price stability.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Solana Integration</h3>
-                    <p>Index movements are reflected through on-chain reporting and data feeds on the Solana blockchain.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Thematic Asset</h3>
-                    <p>DEBT1 functions as a thematic investment vehicle tracking global debt obligations, not a stable store of value.</p>
-                </div>
+                <div class="step"><div class="step-number">1</div><h3>Data Aggregation</h3><p>Global debt data is collected from sovereign, corporate, and household sources worldwide.</p></div>
+                <div class="step"><div class="step-number">2</div><h3>Index Tracking</h3><p>DEBT1 is designed to mirror the direction and magnitude of global debt growth, not maintain price stability.</p></div>
+                <div class="step"><div class="step-number">3</div><h3>Solana Integration</h3><p>Index movements are reflected through on-chain reporting and data feeds on the Solana blockchain.</p></div>
+                <div class="step"><div class="step-number">4</div><h3>Thematic Asset</h3><p>DEBT1 functions as a thematic investment vehicle tracking global debt obligations, not a stable store of value.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Integrations -->
     <section class="section" id="integrations">
         <div class="container">
             <h2>Built on Solana</h2>
             <p class="section-subtitle">DEBT1 is exclusively built on the Solana blockchain, leveraging its speed, scalability, and low transaction costs for optimal performance.</p>
-            
-            <div class="integrations-grid" style="max-width: 600px; margin: 3rem auto 0;">
-                <div class="integration-card" style="grid-column: 1 / -1; max-width: 300px; margin: 0 auto;">
+            <div style="max-width: 600px; margin: 3rem auto 0;">
+                <div class="integration-card" style="max-width: 300px; margin: 0 auto;">
                     <div style="font-size: 2rem; margin-bottom: 1rem;">⚡</div>
                     <h4>Solana Network</h4>
                     <p>SPL Token Standard</p>
-                    <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-top: 0.5rem;">High-speed, low-cost transactions</p>
+                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: 0.5rem;">High-speed, low-cost transactions</p>
                 </div>
             </div>
-
             <div class="chain-addresses">
                 <h3>Contract Address</h3>
                 <div class="address-row">
@@ -829,94 +228,47 @@
                     <code class="address-code">ABC123...XYZ789</code>
                 </div>
             </div>
-
             <div style="text-align: center; margin-top: 2rem;">
-                <a href="#" class="btn btn-primary">Get DEBT1 on Solana</a>
+                <a href="https://bonk.fun/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Get DEBT1 on Solana</a>
             </div>
-
             <div style="text-align: center; margin-top: 2rem;">
                 <a href="#" class="btn btn-secondary">Be a Provider / Integrator</a>
             </div>
         </div>
     </section>
 
-    <!-- Ledger -->
     <section class="section" id="ledger">
         <div class="container">
             <h2>The Ledger / Explorer</h2>
             <p class="section-subtitle">Live tracking of all DEBT1 transactions and holdings on Solana.</p>
-            
             <div style="text-align: center; margin-bottom: 2rem;">
-                <div style="display: inline-flex; gap: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 0.5rem;">
+                <div style="display: inline-flex; gap: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px; padding: 0.5rem;">
                     <button onclick="switchTab('transactions')" id="tab-transactions" class="tab-button active">Recent Transactions</button>
                     <button onclick="switchTab('holders')" id="tab-holders" class="tab-button">Top Holders</button>
                 </div>
             </div>
-
-            <!-- Transactions Tab -->
             <div id="transactions-tab" class="tab-content">
                 <div class="ledger-table">
-                    <div id="loading-transactions" style="text-align: center; padding: 2rem; color: #d4af37;">
-                        Loading live transactions...
-                    </div>
+                    <div id="loading-transactions" style="text-align: center; padding: 2rem; color: #d4af37;">Loading live transactions...</div>
                     <table class="table" id="transactions-table" style="display: none;">
-                        <thead>
-                            <tr>
-                                <th>Transaction</th>
-                                <th>Type</th>
-                                <th>Amount</th>
-                                <th>Price USD</th>
-                                <th>Time</th>
-                            </tr>
-                        </thead>
-                        <tbody id="transactions-body">
-                        </tbody>
+                        <thead><tr><th>Transaction</th><th>Type</th><th>Amount</th><th>Price USD</th><th>Time</th></tr></thead>
+                        <tbody id="transactions-body"></tbody>
                     </table>
                 </div>
             </div>
-
-            <!-- Holders Tab -->
             <div id="holders-tab" class="tab-content" style="display: none;">
                 <div class="ledger-table">
                     <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Address</th>
-                                <th>DEBT1 Balance</th>
-                                <th>Percentage</th>
-                                <th>Value USD</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>Address</th><th>DEBT1 Balance</th><th>Percentage</th><th>Value USD</th></tr></thead>
                         <tbody>
-                            <tr>
-                                <td><code>ABC123...XYZ789</code></td>
-                                <td>1,000,000 DEBT1</td>
-                                <td>54.1%</td>
-                                <td>$X,XXX,XXX</td>
-                            </tr>
-                            <tr>
-                                <td><code>DEF456...UVW012</code></td>
-                                <td>500,000 DEBT1</td>
-                                <td>27.0%</td>
-                                <td>$XXX,XXX</td>
-                            </tr>
-                            <tr>
-                                <td><code>GHI789...RST345</code></td>
-                                <td>250,000 DEBT1</td>
-                                <td>13.5%</td>
-                                <td>$XX,XXX</td>
-                            </tr>
-                            <tr>
-                                <td><code>JKL012...OPQ678</code></td>
-                                <td>100,000 DEBT1</td>
-                                <td>5.4%</td>
-                                <td>$X,XXX</td>
-                            </tr>
+                            <tr><td><code>ABC123...XYZ789</code></td><td>1,000,000 DEBT1</td><td>54.1%</td><td>$X,XXX,XXX</td></tr>
+                            <tr><td><code>DEF456...UVW012</code></td><td>500,000 DEBT1</td><td>27.0%</td><td>$XXX,XXX</td></tr>
+                            <tr><td><code>GHI789...RST345</code></td><td>250,000 DEBT1</td><td>13.5%</td><td>$XX,XXX</td></tr>
+                            <tr><td><code>JKL012...OPQ678</code></td><td>100,000 DEBT1</td><td>5.4%</td><td>$X,XXX</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
             <div style="text-align: center; margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <a href="#" class="btn btn-secondary" onclick="refreshTransactions()">🔄 Refresh Data</a>
                 <a href="#" class="btn btn-secondary" id="dexscreener-link" target="_blank">📊 View on DexScreener</a>
@@ -924,439 +276,28 @@
         </div>
     </section>
 
-    <!-- Transparency -->
     <section class="section">
         <div class="container">
             <h2>Transparency & Data</h2>
             <p class="section-subtitle">Real-time metrics and proof of reserves for complete transparency.</p>
-            
             <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-value">1.85M</div>
-                    <div class="metric-label">Circulating DEBT1</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">$305T+</div>
-                    <div class="metric-label">Referenced Debt Index</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">Variable</div>
-                    <div class="metric-label">Index Tracking</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">Thematic</div>
-                    <div class="metric-label">Asset Classification</div>
-                </div>
+                <div class="metric-card"><div class="metric-value">1.85M</div><div class="metric-label">Circulating DEBT1</div></div>
+                <div class="metric-card"><div class="metric-value">$305T+</div><div class="metric-label">Referenced Debt Index</div></div>
+                <div class="metric-card"><div class="metric-value">Variable</div><div class="metric-label">Index Tracking</div></div>
+                <div class="metric-card"><div class="metric-value">Thematic</div><div class="metric-label">Asset Classification</div></div>
             </div>
-
             <div style="text-align: center; margin-top: 2rem;">
                 <a href="#" class="btn btn-secondary">Download Audit Report</a>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
     <section class="section" id="faq">
         <div class="container">
             <h2>Frequently Asked Questions</h2>
             <p class="section-subtitle">Everything you need to know about DEBT1.</p>
-            
             <div class="faq-container">
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>What backs DEBT1?</span>
-                        <span class="faq-icon">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        DEBT1 is not "backed" in the traditional sense. It is a thematic digital asset that tracks the scale of global debt obligations (currently over $305 trillion). Unlike stablecoins, DEBT1 has no guarantee of price stability or redemption at par.
-                    </div>
+                    <div class="faq-question" onclick="toggleFaq(this)"><span>What backs DEBT1?</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-answer">DEBT1 is not "backed" in the traditional sense. It is a thematic digital asset that tracks the scale of global debt obligations (currently over $305 trillion). Unlike stablecoins, DEBT1 has no guarantee of price stability or redemption at par.</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Is DEBT1 a stablecoin?</span>
-                        <span class="faq-icon">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        No. DEBT1 is not a stablecoin and does not maintain a 1:1 peg to any currency. It is designed to mirror the direction and magnitude of global debt growth, making it a thematic index token rather than a stable store of value.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>How is this different from traditional stablecoins?</span>
-                        <span class="faq-icon">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        Traditional stablecoins like USD1 provide stability through 1:1 pegs to dollars. DEBT1 is fundamentally different — it's an index-style thematic token that tracks global debt growth, not price stability. Think of it as exposure to the world's obligations rather than a stable store of value.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>How does the index tracking work?</span>
-                        <span class="faq-icon">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        DEBT1 is designed to mirror the direction and magnitude of global debt movements through on-chain data reporting. The token value may fluctuate based on debt growth patterns rather than maintaining price stability like traditional stablecoins.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Is DEBT1 audited?</span>
-                        <span class="faq-icon">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        Yes, DEBT1 smart contracts undergo regular third-party audits. All audit reports, reserve proofs, and transparency documents are publicly available in our Transparency section.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>How do I integrate DEBT1 into my protocol?</span>
-                        <span class="faq-icon">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        Developers can integrate DEBT1 using standard SPL token contracts on Solana. Contact our integration team for technical documentation, API access, and partnership opportunities specific to the Solana ecosystem.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>What are the risks?</span>
-                        <span class="faq-icon">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        As with any digital asset, DEBT1 carries smart contract, oracle, and market risks. Additionally, there are Solana network-specific risks to consider. Please read our full risk disclosures and only invest what you can afford to lose. Past performance does not guarantee future results.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Why Solana?</span>
-                        <span class="faq-icon">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        Solana's high throughput, low transaction costs, and fast finality make it ideal for DEBT1's frequent peg adjustments and real-time debt index tracking. The network's scalability ensures smooth operations even during high-volume periods.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>DEBT1</h4>
-                    <a href="#about">About</a>
-                    <a href="#how-it-works">How It Works</a>
-                    <a href="#integrations">Integrations</a>
-                    <a href="#ledger">Ledger</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <a href="#">Whitepaper</a>
-                    <a href="#">API Documentation</a>
-                    <a href="#">Audit Reports</a>
-                    <a href="#">Brand Kit</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Community</h4>
-                    <a href="#">Discord</a>
-                    <a href="#">Telegram</a>
-                    <a href="#">Twitter</a>
-                    <a href="#">GitHub</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Risk Disclosures</a>
-                    <a href="#">Compliance</a>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Department of Debt. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="#" class="social-link">𝕏</a>
-                    <a href="#" class="social-link">📱</a>
-                    <a href="#" class="social-link">💬</a>
-                    <a href="#" class="social-link">📧</a>
-                </div>
-                <p style="margin-top: 1rem; font-size: 0.8rem;">
-                    Issued by Department of Debt | Multi-chain digital asset indexed to global obligations
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // FAQ toggle functionality
-        function toggleFaq(element) {
-            const faqItem = element.parentElement;
-            const answer = faqItem.querySelector('.faq-answer');
-            const icon = element.querySelector('.faq-icon');
-            
-            // Close all other FAQ items
-            document.querySelectorAll('.faq-item').forEach(item => {
-                if (item !== faqItem) {
-                    item.classList.remove('open');
-                    item.querySelector('.faq-answer').style.display = 'none';
-                }
-            });
-            
-            // Toggle current FAQ item
-            if (faqItem.classList.contains('open')) {
-                faqItem.classList.remove('open');
-                answer.style.display = 'none';
-            } else {
-                faqItem.classList.add('open');
-                answer.style.display = 'block';
-            }
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add animation on scroll
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.feature-card, .step, .metric-card, .integration-card');
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }
-            });
-        }
-
-        // Initialize animations
-        document.addEventListener('DOMContentLoaded', function() {
-            const elements = document.querySelectorAll('.feature-card, .step, .metric-card, .integration-card');
-            elements.forEach(element => {
-                element.style.opacity = '0';
-                element.style.transform = 'translateY(20px)';
-                element.style.transition = 'all 0.6s ease';
-            });
-            
-            animateOnScroll();
-        });
-
-        window.addEventListener('scroll', animateOnScroll);
-
-        // Mobile menu functionality (placeholder for future enhancement)
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            // Mobile menu toggle would go here
-            console.log('Mobile menu clicked');
-        });
-
-        // Initialize FAQ answers as hidden
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.faq-answer').forEach(answer => {
-                answer.style.display = 'none';
-            });
-        });
-
-        // Add loading animation for metrics (simulate real-time data)
-        function animateMetrics() {
-            const metrics = document.querySelectorAll('.metric-value');
-            metrics.forEach((metric, index) => {
-                setTimeout(() => {
-                    metric.style.opacity = '0';
-                    setTimeout(() => {
-                        metric.style.opacity = '1';
-                        metric.style.transform = 'scale(1.05)';
-                        setTimeout(() => {
-                            metric.style.transform = 'scale(1)';
-                        }, 200);
-                    }, 100);
-                }, index * 200);
-            });
-        }
-
-        // Animate metrics every 10 seconds to simulate live updates
-        setInterval(animateMetrics, 10000);
-
-        // Add particle effect to hero background
-        function createParticles() {
-            const hero = document.querySelector('.hero');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.style.position = 'absolute';
-                particle.style.width = '2px';
-                particle.style.height = '2px';
-                particle.style.background = 'rgba(212, 175, 55, 0.3)';
-                particle.style.borderRadius = '50%';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animation = `float ${5 + Math.random() * 10}s ease-in-out infinite`;
-                particle.style.animationDelay = Math.random() * 5 + 's';
-                hero.appendChild(particle);
-            }
-        }
-
-        // Initialize particles after DOM load
-        document.addEventListener('DOMContentLoaded', createParticles);
-
-        // DexScreener API Integration
-        const DEBT1_TOKEN_ADDRESS = 'YOUR_SOLANA_TOKEN_ADDRESS_HERE'; // Replace with actual token address
-        const DEXSCREENER_BASE_URL = 'https://api.dexscreener.com/latest/dex';
-
-        // Switch between tabs
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.style.display = 'none';
-            });
-            
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(tabName + '-tab').style.display = 'block';
-            document.getElementById('tab-' + tabName).classList.add('active');
-            
-            // Load data if switching to transactions
-            if (tabName === 'transactions') {
-                loadTransactions();
-            }
-        }
-
-        // Load transactions from DexScreener API
-        async function loadTransactions() {
-            const loadingEl = document.getElementById('loading-transactions');
-            const tableEl = document.getElementById('transactions-table');
-            const tbody = document.getElementById('transactions-body');
-            
-            try {
-                // Show loading
-                loadingEl.style.display = 'block';
-                tableEl.style.display = 'none';
-                
-                // Fetch token data from DexScreener
-                const response = await fetch(`${DEXSCREENER_BASE_URL}/tokens/${DEBT1_TOKEN_ADDRESS}`);
-                const data = await response.json();
-                
-                if (data.pairs && data.pairs.length > 0) {
-                    const pair = data.pairs[0]; // Get the most liquid pair
-                    
-                    // Update DexScreener link
-                    document.getElementById('dexscreener-link').href = pair.url;
-                    
-                    // For demonstration, we'll show some mock transaction data
-                    // In reality, you'd need to fetch actual transaction data from Solana RPC
-                    displayMockTransactions(tbody, pair.priceUsd);
-                } else {
-                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: rgba(255, 255, 255, 0.5);">Token not yet listed on DEX</td></tr>';
-                }
-                
-                // Hide loading, show table
-                loadingEl.style.display = 'none';
-                tableEl.style.display = 'table';
-                
-            } catch (error) {
-                console.error('Error loading transactions:', error);
-                loadingEl.innerHTML = '<span style="color: #f44336;">Error loading data. Token may not be launched yet.</span>';
-                
-                // Show mock data for demo purposes
-                displayMockTransactions(tbody, '0.00');
-                loadingEl.style.display = 'none';
-                tableEl.style.display = 'table';
-            }
-        }
-
-        // Display mock transactions (replace with real Solana transaction data later)
-        function displayMockTransactions(tbody, currentPrice) {
-            const mockTransactions = [
-                {
-                    hash: 'ABC123...XYZ789',
-                    type: 'buy',
-                    amount: '50,000',
-                    price: currentPrice || '0.001234',
-                    time: '2 min ago'
-                },
-                {
-                    hash: 'DEF456...UVW012', 
-                    type: 'sell',
-                    amount: '25,000',
-                    price: currentPrice || '0.001230',
-                    time: '5 min ago'
-                },
-                {
-                    hash: 'GHI789...RST345',
-                    type: 'buy',
-                    amount: '100,000',
-                    price: currentPrice || '0.001228',
-                    time: '8 min ago'
-                },
-                {
-                    hash: 'JKL012...OPQ678',
-                    type: 'sell',
-                    amount: '75,000',
-                    price: currentPrice || '0.001225',
-                    time: '12 min ago'
-                }
-            ];
-
-            tbody.innerHTML = mockTransactions.map(tx => `
-                <tr class="transaction-row ${tx.type}-transaction">
-                    <td>
-                        <a href="https://solscan.io/tx/${tx.hash}" target="_blank" class="transaction-hash">
-                            ${tx.hash}
-                        </a>
-                    </td>
-                    <td>
-                        <span style="color: ${tx.type === 'buy' ? '#4CAF50' : '#f44336'}; font-weight: 600;">
-                            ${tx.type.toUpperCase()}
-                        </span>
-                    </td>
-                    <td>${tx.amount} DEBT1</td>
-                    <td>${tx.price}</td>
-                    <td>${tx.time}</td>
-                </tr>
-            `).join('');
-        }
-
-        // Refresh transactions
-        function refreshTransactions() {
-            loadTransactions();
-        }
-
-        // Auto-refresh transactions every 30 seconds
-        setInterval(() => {
-            if (document.getElementById('transactions-tab').style.display !== 'none') {
-                loadTransactions();
-            }
-        }, 30000);
-
-        // Load transactions on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadTransactions();
-        });
-    </script>
-</body>
-</html>
